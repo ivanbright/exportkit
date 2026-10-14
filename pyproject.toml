@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exportkit"
+version = "0.1.0"
+description = "Render declarative tabular reports to Excel, Word and PDF from plain Python data."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "codewithmugisha", email = "bright001it@gmail.com" }]
+keywords = [
+    "export", "excel", "xlsx", "word", "docx", "pdf", "report",
+    "openpyxl", "python-docx", "fpdf2", "table", "data-export",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = []
+
+[project.optional-dependencies]
+xlsx = ["openpyxl>=3.1"]
+docx = ["python-docx>=1.1"]
+pdf = ["fpdf2>=2.7.6"]
+all = ["openpyxl>=3.1", "python-docx>=1.1", "fpdf2>=2.7.6"]
+dev = ["pytest>=7", "build>=1.0", "twine>=4.0"]
+
+[project.urls]
+Homepage = "https://github.com/codewithmugisha/exportkit"
+Repository = "https://github.com/codewithmugisha/exportkit"
+Issues = "https://github.com/codewithmugisha/exportkit/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+exportkit = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
