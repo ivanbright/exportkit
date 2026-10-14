@@ -46,6 +46,26 @@ def test_xlsx_round_trip(report):
     )
 
 
+def test_xlsx_accepts_aware_datetimes():
+    from datetime import datetime, timezone
+
+    from openpyxl import load_workbook
+
+    aware = datetime(2026, 10, 14, 9, 30, tzinfo=timezone.utc)
+    report = Report(title="Times", columns=[Column("When")], rows=[[aware]])
+
+    data = render(report, "xlsx")
+    sheet = load_workbook(io.BytesIO(data)).active
+    stored = [
+        cell.value
+        for row in sheet.iter_rows()
+        for cell in row
+        if isinstance(cell.value, datetime)
+    ]
+    assert stored, "datetime cell was not written"
+    assert stored[0].tzinfo is None
+
+
 def test_docx_round_trip(report):
     from docx import Document
 

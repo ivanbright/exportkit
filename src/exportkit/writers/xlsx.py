@@ -2,12 +2,28 @@
 
 from __future__ import annotations
 
+from datetime import datetime, time, timezone
 from io import BytesIO
 from typing import Any
 
 from ..exceptions import MissingDependencyError
 
-_INVALID_SHEET_CHARS = set('[]:*?/\\')
+_INVALID_SHEET_CHARS = set("[]:*?/\\")
+
+
+def _cell_value(value: Any) -> Any:
+    """Coerce a raw value into something openpyxl can store.
+
+    Excel has no concept of time zones, so aware datetimes are converted to UTC
+    and stripped of their tzinfo; unsupported types fall back to ``str``.
+    """
+    if isinstance(value, datetime) and value.tzinfo is not None:
+        return value.astimezone(timezone.utc).replace(tzinfo=None)
+    if isinstance(value, time) and value.tzinfo is not None:
+        return value.replace(tzinfo=None)
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    return str(value)
 
 
 def _safe_sheet_name(name: str) -> str:
@@ -69,7 +85,7 @@ def write_xlsx(report, raws: list[list[Any]], displays: list[list[str]], options
 
     for raw in raws:
         for index, (column, value) in enumerate(zip(columns, raw), start=1):
-            cell = sheet.cell(row=cursor, column=index, value=value)
+            cell = sheet.cell(row=cursor, column=index, value=_cell_value(value))
             cell.alignment = Alignment(horizontal=column.align, vertical="top")
         cursor += 1
 

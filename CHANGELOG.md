@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-10-14
+
+### Fixed
+- Excel export now accepts timezone-aware datetimes (Excel has no time-zone
+  support); aware values are converted to UTC and made naive. Unsupported cell
+  types fall back to their string representation.
+
 ## [0.1.0] - 2026-10-14
 
 ### Added

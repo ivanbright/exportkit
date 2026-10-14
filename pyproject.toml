@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "exportkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Render declarative tabular reports to Excel, Word and PDF from plain Python data."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -38,9 +38,9 @@ all = ["openpyxl>=3.1", "python-docx>=1.1", "fpdf2>=2.7.6"]
 dev = ["pytest>=7", "build>=1.0", "twine>=4.0"]
 
 [project.urls]
-Homepage = "https://github.com/codewithmugisha/exportkit"
-Repository = "https://github.com/codewithmugisha/exportkit"
-Issues = "https://github.com/codewithmugisha/exportkit/issues"
+Homepage = "https://github.com/ivanbright/exportkit"
+Repository = "https://github.com/ivanbright/exportkit"
+Issues = "https://github.com/ivanbright/exportkit/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
